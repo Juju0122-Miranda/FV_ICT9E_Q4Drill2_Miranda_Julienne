@@ -1,68 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-     <title>Q4 Drill 2</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech&display=swap" rel="stylesheet">
 
-    <style>
+<title>Heat Index Checker</title>
+<style>
 
-     h1{
+        
+    body {
+        background-image: url(https://i.pinimg.com/736x/f6/61/c3/f661c394124b4ed6e4ebd47ddf6ac557.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    h1 {
         text-align: center;
-        font-size: 40px;
+        font-size: 43px;
         font-weight: bold;
-        }
-
-    #note{
-        font-size: 15px;
+        font-family: "Share Tech", sans-serif;
+        margin-bottom: 20px;
+    }
+    #note {
+        font-size: 14px;
         text-align: center;
+        margin-bottom: 15px;
+        color: white;
     }
-
-    #pdeg{
-        font-size: 20px;
+    label {
+        font-size: 16px;
+        font-weight: 500;
+        color: white;
+        display: block;
+        margin-top: 10px;
+        text-align: left;
+        font-family: ;
+    }
+    .card-container {
+        background-color: #bf622df1;
+        padding: 30px;
+        border-radius: 25px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        color: white;
+    }
+    input {
+        width: 100%;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+    button {
+        background-color: #f7f7f5;
+        color: #bf622df1;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        border-radius: 10px;
+        cursor: pointer;
         font-weight: bold;
     }
-
-    #phumid{
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-
-    </style>
-
-
-
+    
+</style>
 </head>
 <body>
-    
-    <h1>Heat Index Checker</h1>
-    <details>
-    <summary style="text-align: center;">Note:</summary>
-    <p id="note"></p>
-    </details>
 
-    <p id="pdeg"> Tempreature measured in °C </p>
-     <input type="text" id="Age" class="form-control" placeholder="input a value" style="width: fit-content;">
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card-container">
+        <h1>Heat Index Checker</h1>
 
-     <p id="phumid"> Humidity level in % </p>
-     <input type="text" id="Age" class="form-control" placeholder="input a percentage" style="width: fit-content;">
-        <br>
-      <button class="btn" onclick="">Check</button>
-    
-    <script>
-    document.getElementById('note').innerHTML =
-        "Input the value of the temperature measured in °C and humidity in %. After which, click check to see the heat index and its status.";
+        <details>
+            <summary style="cursor: pointer; color: #f0efef;">Note:</summary>
+            <p id="note"></p>
+        </details>
 
+        <label for="heat">Degree in °C</label>
+        <input type="number" id="heat" placeholder="Input degree value" style="border-radius: 10px;">
 
+        <label for="humid">Humidity in %</label>
+        <input type="number" id="humid" placeholder="Input percentage value">
 
+        <button onclick="Checker_()">Check</button>
+    </div>
+</div>
 
-    </script>
+<script>
+document.getElementById('note').innerHTML = "Input the temperature (°C) and humidity (%), then click Check to see the heat index and its status.";
 
+function Checker_() {
+    var temp = (document.getElementById('heat').value);
+    var humidity = (document.getElementById('humid').value);
 
+    if (isNaN(temp) || isNaN(humidity)) {
+        alert("Please enter valid numbers.");
+        return;
+    }
 
+    var heatIndex = temp + (0.33 * humidity) - 4;
+    var status = "";
 
+    switch(true) {
+        case (heatIndex <= 27):
+            status = "Comfortable / Cool";
+            break;
+        case (heatIndex >= 28 && heatIndex <= 32):
+            status = "Warm";
+            break;
+        case (heatIndex >= 33 && heatIndex <= 37):
+            status = "Hot";
+            break;
+        case (heatIndex >= 38 && heatIndex <= 41):
+            status = "Very Hot / Caution";
+            break;
+        case (heatIndex >= 42):
+            status = "Extreme Heat / Danger";
+            break;
+    }
 
+    alert("Heat Index: " + heatIndex.toFixed(1) + "°C\nStatus: " + status);
+}
+</script>
 </body>
 </html>
